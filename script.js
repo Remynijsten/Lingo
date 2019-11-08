@@ -3,6 +3,7 @@ var firstWORD = word.split('');
 firstWORD.join('');
 var word2 = "HELLO";
 var firstWORD2 = word2.split('');
+firstWORD2.join('');
 
 var form = document.createElement("FORM");
 var input = document.createElement('INPUT');
@@ -30,34 +31,31 @@ form.appendChild(input);
 inputbox.appendChild(form);
 
 function createWORD(){
-	input.value.split('');
-
 	
+	var enter = input.value.toUpperCase();
+	console.log(enter);
+	enter.split('');	
 
-	if (input.value[0] == firstWORD2[0]){	
+	if (enter[0] == firstWORD2[0]){	
 		firstWORD[0] = firstWORD2[0];
 	}
-	if (input.value[1] == firstWORD2[1]){	
+	if (enter[1] == firstWORD2[1]){	
 		firstWORD[1] = firstWORD2[1];
 	}
-	if (input.value[2] == firstWORD2[2]){	
+	if (enter[2] == firstWORD2[2]){	
 		firstWORD[2] = firstWORD2[2];
 	}
-	if (input.value[3] == firstWORD2[3]){	
+	if (enter[3] == firstWORD2[3]){	
 		firstWORD[3] = firstWORD2[3];
 	}
-	if (input.value[4] == firstWORD2[4]){	
+	if (enter[4] == firstWORD2[4]){	
 		firstWORD[4] = firstWORD2[4];
 	}
 
-
-
-
-
-	console.log(firstWORD);
-	console.log(firstWORD2);
 	for (i=1;i<6;i++){
 	var para = document.createElement("p");
+	para.setAttribute('class','Button' + i);
+
 	var node = document.createTextNode(firstWORD[i-1]);
 	para.appendChild(node);
 	var playbord = document.getElementById("playbord");
@@ -73,7 +71,9 @@ function createWORD(){
 
 document.getElementById('input').onkeydown = function(e){
    if(e.keyCode == 13){
-     createWORD();
+	
+	
+    createWORD();
      
    }
 };
