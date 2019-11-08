@@ -5,6 +5,10 @@
 </head>
 
 <style>
+	
+*:focus {
+    outline: none;
+}
 
 body{
 	background-color: black;
@@ -28,19 +32,28 @@ body{
 p{
 	display: inline-block;
     width: 3vw;
-    height: 3vh;
+    height: 5vh;
     background: white;
+    line-height: 5vh;
+    margin-left: 3px;
     text-align: center;
-    line-height: 3vh;
+    margin-bottom: 0px;
 }
-
+#input{
+	height: 8.5vh;
+    width: 16vw;
+    margin: 198px auto;
+}
 </style>
 <body>
 	<div id="main">
 		<div id="playbord">
 		</div>
+	
+	<div id="input"></div>
 	</div>
 
+	
 	<script src="script.js"></script>
 </body>
 </html>
