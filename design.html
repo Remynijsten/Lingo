@@ -5,11 +5,6 @@
 </head>
 
 <style>
-	
-*:focus {
-    outline: none;
-}
-
 body{
 	background-color: black;
 }
@@ -17,32 +12,49 @@ body{
 #main{
 	margin: 0 auto;
     display: block;
-    background: url(bgleft.png);
     background-size: cover;
-    width: 66vw;
-    height: 65vh;
+    background-image: url(title.png);
+    width: 1450px;
+    height: 750px;
     padding-top: 45px;
+    transition: all 2s;
 }
 
 #playbord{
-    width: 16vw;
+    width: 335px;
     height: 34vh;
     margin: 0 auto;
+    text-align: center;
 }
 p{
 	display: inline-block;
-    width: 3vw;
-    height: 5vh;
-    background: white;
-    line-height: 5vh;
-    margin-left: 3px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
     text-align: center;
     margin-bottom: 0px;
 }
 #input{
-	height: 8.5vh;
-    width: 16vw;
-    margin: 198px auto;
+	margin: 285px auto;
+    outline: 0;
+}
+#startBTN{
+    background: transparent;
+    width: 300px;
+    height: 70px;
+    color: white;
+    border-radius: 10px;
+    font-size: 40px;
+    transition: all 0.3s ease-out;
+    opacity: 1;
+    position: absolute;
+    left: 42.3vw;
+    top: 30vh;
+}
+#startBTN:hover{
+    transform:scale(1.1, 1.1);
+    background:white;
+    color: black;
 }
 </style>
 <body>
