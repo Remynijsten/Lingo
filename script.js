@@ -11,6 +11,8 @@ var good = new Audio("music/good.mp3");
 var bad = new Audio("music/bad.mp3");
 var click = new Audio("music/buttonclick.mp3")
 var bgmusic = new Audio("music/bgmusic.mp3");
+var applause = new Audio("music/applause.mp3");
+var aww = new Audio("music/aww.mp3");
 bgmusic.loop = true;
 
 function screenMAX(){
@@ -65,6 +67,26 @@ function randomWORD(){
 	firstWORD = word.split('');
 	return random;
 } 
+
+function txtEMPTY(){
+	txt.innerHTML = "";
+}
+function txtscreen(){
+	txt.innerHTML = "Fullscreen";
+}
+function txtmute(){
+	txt.innerHTML = "Mute Music";
+}
+function txtmenuopen(){
+	txt.innerHTML = "Open Menu";
+}
+function txtmenuclose(){
+	txt.innerHTML = "Close Menu";
+}
+
+
+
+
 
 var word2 = words[random].toUpperCase();
 var firstWORD2 = word2.split('');
@@ -123,7 +145,7 @@ var playbord = document.getElementById("playbord");
 var main = document.getElementById("main");
 main.style.position = "relative";
 main.style.opacity = "1";
-document.getElementById('main').style.backgroundImage = "title.png";
+document.getElementById('main').style.backgroundImage = "img/title.png";
 playbord.appendChild(btn);												// Playbord
 // --------------------------------------------------------------------------------
 
@@ -131,6 +153,8 @@ playbord.appendChild(btn);												// Playbord
 var fullscreen = document.createElement("I");
 fullscreen.setAttribute('class', 'fas fa-expand');
 fullscreen.setAttribute('onclick', 'screenMAX()');
+fullscreen.setAttribute('onmouseover', 'txtscreen()');
+fullscreen.setAttribute('onmouseout', 'txtEMPTY()');
 fullscreen.style.color = "white";
 fullscreen.style.fontSize = "30px";
 fullscreen.style.float = "left";
@@ -139,10 +163,21 @@ fullscreen.style.marginLeft = "5px";
 fullscreen.style.lineHeight = "50px";
 fullscreen.style.cursor = "pointer";
 
+var txt = document.createElement("P");
+var txtnode = document.createTextNode("");
+txt.appendChild(txtnode);
+txt.style.color = "white";
+txt.style.position = "absolute";
+txt.style.top = "5%";
+txt.style.fontSize = "30px";
+txt.style.textAlign = "left";
+txt.style.width = "300px";
 
 var mute = document.createElement("I");
 mute.setAttribute('class', 'fas fa-volume-mute');
 mute.setAttribute('onclick', 'offSOUND()');
+mute.setAttribute('onmouseover', 'txtmute()');
+mute.setAttribute('onmouseout', 'txtEMPTY()');
 mute.style.color = "white";
 mute.style.float = "left";
 mute.style.display = "inline";
@@ -155,6 +190,8 @@ mute.style.cursor = "pointer";
 var closebtn = document.createElement("I");
 closebtn.setAttribute('class', 'fas fa-caret-left');
 closebtn.setAttribute('onclick', 'closeMENU()');
+closebtn.setAttribute('onmouseover', 'txtmenuclose()');
+closebtn.setAttribute('onmouseout', 'txtEMPTY()');
 closebtn.style.color = "white";
 closebtn.style.fontSize = "30px"
 closebtn.style.lineHeight = "50px";
@@ -164,6 +201,8 @@ closebtn.style.marginLeft = "95px";
 var openbtn = document.createElement("I");
 openbtn.setAttribute('class', 'fas fa-caret-right');
 openbtn.setAttribute('onclick', 'openMENU()');
+openbtn.setAttribute('onmouseover', 'txtmenuopen()');
+openbtn.setAttribute('onmouseout', 'txtEMPTY()');
 openbtn.style.color = "white";
 openbtn.style.fontSize = "30px"
 openbtn.style.lineHeight = "50px";
@@ -212,9 +251,10 @@ scoreRIGHT.innerHTML = scoreTWO;
 var resultimg = document.createElement("IMG");
 resultimg.style.width = "500px";
 resultimg.style.height = "300px";
-resultimg.setAttribute('src', 'goedleft.png');
+resultimg.setAttribute('src', 'img/goedleft.png');
 popup.appendChild(resultimg);
 main.prepend(popup);
+main.appendChild(txt);
 main.appendChild(scoreLEFT);
 main.appendChild(scoreRIGHT);
 
@@ -227,6 +267,21 @@ menu.style.position = "absolute"
 menu.style.top = "30px";
 menu.style.transition = "all 0.5s ease-out";
 menu.style.overflowX = "hidden";
+menu.style.overflowY = "hidden";
+
+var timeline = document.createElement("div");
+timeline.setAttribute('id', 'timeline');
+timeline.style.width = "345px";
+timeline.style.height = "5px";
+timeline.style.display = "block";
+timeline.style.position = "absolute";
+timeline.style.top = "62%";
+timeline.style.left = "38%";
+timeline.style.animationName = "timer";
+timeline.style.animationDuration = "30s";
+timeline.style.animationTimingFunction = "linear";
+timeline.style.animationPlayState = "running";
+timeline.addEventListener("animationend", timesUP);
 
 menu.appendChild(openbtn);
 menu.appendChild(fullscreen);
@@ -234,19 +289,48 @@ menu.appendChild(mute);
 menu.appendChild(closebtn);
 main.appendChild(menu);
 
+
+function timesUP(){
+	if (bgindex == 0){
+		bgindex = 1;
+		aww.play();
+		main.style.backgroundImage = "url(img/bgright.png)";
+		resultimg.setAttribute('src', 'img/tijdlinks.png');
+		popup.style.display = "block";
+
+		setTimeout(function(){
+			main.appendChild(timeline);
+			popup.style.display = "none";
+		}, 2000);
+	}
+	else if(bgindex == 1){
+		bgindex = 0;
+		aww.play();
+		main.style.backgroundImage = "url(img/bgleft.png)";
+		resultimg.setAttribute('src', 'img/tijdrechts.png');
+		popup.style.display = "block";
+
+		setTimeout(function(){
+			main.appendChild(timeline);
+			popup.style.display = "none";
+		}, 2000);
+	}
+}
+
 function start(){
 	click.play();
 	main.style.opacity = "0";
 	btn.style.display = "none";
 	bgmusic.play();
 	setTimeout(function(){ 
-		document.getElementById("main").style.backgroundImage = "url(bgleft.png)"
+		document.getElementById("main").style.backgroundImage = "url(img/bgleft.png)"
 		main.style.opacity = "1"; 
 		scoreLEFT.style.display = "block";
 		scoreRIGHT.style.display = "block";
 		form.appendChild(input);
 		inputbox.appendChild(form);
 		createWORD();
+		main.appendChild(timeline);
 	}, 2000);
 }
 
@@ -460,10 +544,14 @@ function letterWORD(){
 	result(enter);
 
 	if (result() == true && bgindex == 0){
+		timeline.style.animationPlayState = "paused";
+		
 		setTimeout(function(){
+			main.removeChild(timeline);
+			applause.play();
 			scoreONE = +scoreONE + 1;
 			scoreLEFT.innerHTML = scoreONE;
-			resultimg.setAttribute('src', 'goedleft.png');
+			resultimg.setAttribute('src', 'img/goedleft.png');
 			popup.style.display = "block";
 			roundCOUNT = 0;
 			randomWORD();
@@ -473,14 +561,20 @@ function letterWORD(){
 
 		}, 2000);
 		setTimeout(function(){
+			main.appendChild(timeline);
+			timeline.style.animationPlayState = "running";
 			popup.style.display = "none";
 		}, 4000);
 	}
 	else if (result() == true && bgindex == 1){
+		timeline.style.animationPlayState = "paused";
+		
 		setTimeout(function(){
+			main.removeChild(timeline);
+			applause.play();
 			scoreTWO = +scoreTWO + 1;
 			scoreRIGHT.innerHTML = scoreTWO;
-			resultimg.setAttribute('src', 'goedright.png');
+			resultimg.setAttribute('src', 'img/goedright.png');
 			popup.style.display = "block";
 			roundCOUNT = 0;
 			randomWORD();
@@ -490,6 +584,8 @@ function letterWORD(){
 
 		}, 2000);
 		setTimeout(function(){
+			main.appendChild(timeline);
+			timeline.style.animationPlayState = "running";
 			popup.style.display = "none";
 		}, 4000);
 	}
@@ -502,11 +598,13 @@ function letterWORD(){
 		else if(roundCOUNT == 5 && bgindex == 0){
 			bgindex = 1;
 			roundCOUNT = 0;
-			
+			timeline.style.animationPlayState = "paused";
 			setTimeout(function(){
+				main.removeChild(timeline);
+				aww.play();
 				x = -1;
-				main.style.backgroundImage = "url(bgright.png)";
-				resultimg.setAttribute('src', 'foutleft.png');
+				main.style.backgroundImage = "url(img/bgright.png)";
+				resultimg.setAttribute('src', 'img/foutleft.png');
 				popup.style.display = "block";
 				randomWORD();
 				removeWORDS();
@@ -515,17 +613,21 @@ function letterWORD(){
 			}, 2000);
 
 			setTimeout(function(){
+				main.appendChild(timeline);
+				timeline.style.animationPlayState = "running";
 				popup.style.display = "none";
 			}, 4000);
 		}
 		else if(roundCOUNT == 5 && bgindex == 1){
 			bgindex = 0;
 			roundCOUNT = 0;
-			
+			timeline.style.animationPlayState = "paused";
 			setTimeout(function(){
+				main.removeChild(timeline);
+				aww.play();
 				x = -1;
-				main.style.backgroundImage = "url(bgleft.png)";
-				resultimg.setAttribute('src', 'foutright.png');
+				main.style.backgroundImage = "url(img/bgleft.png)";
+				resultimg.setAttribute('src', 'img/foutright.png');
 				popup.style.display = "block";
 				randomWORD();
 				removeWORDS();
@@ -533,6 +635,8 @@ function letterWORD(){
 			}, 2000);
 
 			setTimeout(function(){
+				main.appendChild(timeline);
+				timeline.style.animationPlayState = "running";
 				popup.style.display = "none";
 			}, 4000);
 		}
