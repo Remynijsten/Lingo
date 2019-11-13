@@ -86,7 +86,8 @@ function txtmenuclose(){
 
 
 
-
+document.body.style.background = "black";
+document.body.style.fontFamily = "'Maven Pro', sans-serif";
 
 var word2 = words[random].toUpperCase();
 var firstWORD2 = word2.split('');
@@ -110,7 +111,7 @@ input.type = "TEXT";
 input.name = "word";
 input.style.margin = "0 auto";
 input.style.width = "345px";
-input.style.height = "80px";
+input.style.height = "85px";
 input.style.outline = "0";
 input.style.borderRadius = "25px";
 input.style.fontSize = "65px";
@@ -142,10 +143,29 @@ btn.style.display = "block";										// Start Button
 // --------------------------------------------------------------------------------
 
 var playbord = document.getElementById("playbord");
+playbord.style.width = "335px";
+playbord.style.height = "638px";
+playbord.style.minWidth = "335px";
+playbord.style.maxWidth = "100%";
+playbord.style.minHeight = "638px";
+playbord.style.maxHeight = "638px";
+playbord.style.margin = "0 auto";
+playbord.style.textAlign = "center";
+playbord.style.position = "absolute";
+playbord.style.top = "3%";
+playbord.style.left = "38.5%";
+
+// --------------------------------------------------------------------------------
 var main = document.getElementById("main");
 main.style.position = "relative";
 main.style.opacity = "1";
-document.getElementById('main').style.backgroundImage = "img/title.png";
+main.style.margin = "0 auto";
+main.style.display = "block";
+main.style.backgroundSize = "cover";
+main.style.width = "1450px";
+main.style.height = "780px";
+main.style.transition = "all 2s";
+main.style.backgroundImage = "url(img/title.png)";
 playbord.appendChild(btn);												// Playbord
 // --------------------------------------------------------------------------------
 
@@ -172,6 +192,10 @@ txt.style.top = "5%";
 txt.style.fontSize = "30px";
 txt.style.textAlign = "left";
 txt.style.width = "300px";
+txt.style.display = "inline-block";
+txt.style.height = "60px";
+txt.style.lineHeight = "60px";
+txt.style.marginBottom = "0px";
 
 var mute = document.createElement("I");
 mute.setAttribute('class', 'fas fa-volume-mute');
@@ -272,13 +296,13 @@ menu.style.overflowY = "hidden";
 var timeline = document.createElement("div");
 timeline.setAttribute('id', 'timeline');
 timeline.style.width = "345px";
-timeline.style.height = "5px";
+timeline.style.height = "10px";
 timeline.style.display = "block";
 timeline.style.position = "absolute";
-timeline.style.top = "62%";
+timeline.style.top = "63%";
 timeline.style.left = "38%";
 timeline.style.animationName = "timer";
-timeline.style.animationDuration = "30s";
+timeline.style.animationDuration = "60s";
 timeline.style.animationTimingFunction = "linear";
 timeline.style.animationPlayState = "running";
 timeline.addEventListener("animationend", timesUP);
@@ -291,7 +315,28 @@ main.appendChild(menu);
 
 
 function timesUP(){
+
+	var point = 0;
+
+	for(i=0;i<=4;i++){
+		if (firstWORD[i] == "."){
+			point++;
+		}
+	}
+
+	if (point > 1){
+		var firstDOT = firstWORD.indexOf('.');
+		firstWORD[firstDOT] = firstWORD2[firstDOT];
+		firstDOT2 = +firstDOT + 1;
+		document.getElementsByClassName("Button" + firstDOT2)[roundCOUNT].innerHTML = firstWORD2[firstDOT];
+		document.getElementsByClassName("Button" + firstDOT2)[roundCOUNT].style.background = "darkgreen";
+	}
+	else if (point == 0){}
+
+	console.log(point);
+
 	if (bgindex == 0){
+		
 		bgindex = 1;
 		aww.play();
 		main.style.backgroundImage = "url(img/bgright.png)";
@@ -304,6 +349,7 @@ function timesUP(){
 		}, 2000);
 	}
 	else if(bgindex == 1){
+		
 		bgindex = 0;
 		aww.play();
 		main.style.backgroundImage = "url(img/bgleft.png)";
@@ -322,8 +368,13 @@ function start(){
 	main.style.opacity = "0";
 	btn.style.display = "none";
 	bgmusic.play();
-	setTimeout(function(){ 
+	
+	setTimeout(function(){
 		document.getElementById("main").style.backgroundImage = "url(img/bgleft.png)"
+	}, 1000);
+	
+	setTimeout(function(){ 
+		
 		main.style.opacity = "1"; 
 		scoreLEFT.style.display = "block";
 		scoreRIGHT.style.display = "block";
@@ -356,11 +407,27 @@ function createWORD(){
 var x = -1;
 
 function letterWORD(){
+
+	
+
+
+	console.log(input.value);
+
+
+
 	click.play();
 	x++;
-	var enter = input.value.toUpperCase();
+	var enter = input.value.replace("ij", "y").toUpperCase();
 	enter.split('');
 
+	
+	var change = enter.indexOf('I');
+	changeY = +change + 1;
+	if (enter[changeY] == "J"){
+		enter[changeY] = "";
+		enter[change] = "Y";
+	}
+	
 
 	// -------------------------------------------------------------------------------
 	var checkONE = firstWORD2.includes(enter[0]);
@@ -368,6 +435,7 @@ function letterWORD(){
 			setTimeout(function(){
 				document.getElementsByClassName("Button1")[x].innerHTML = enter[0];
 				document.getElementsByClassName("Button1")[x].style.background = "orange";
+				document.getElementsByClassName("Button1")[x].style.borderRadius = "35px";
 				bad.play();
 				bad.currentTime = 0;
 			}, 0);
@@ -376,6 +444,7 @@ function letterWORD(){
 			setTimeout(function(){
 				document.getElementsByClassName("Button1")[x].innerHTML = enter[0];
 				document.getElementsByClassName("Button1")[x].style.background = "darkred";
+				document.getElementsByClassName("Button1")[x].style.borderRadius = "0px";
 				bad.play();
 				bad.currentTime = 0;
 			}, 0);
@@ -384,6 +453,7 @@ function letterWORD(){
 			firstWORD[0] = firstWORD2[0];
 			setTimeout(function(){ 
 				document.getElementsByClassName("Button1")[x].style.background = "darkgreen";
+				document.getElementsByClassName("Button1")[x].style.borderRadius = "0px";
 				document.getElementsByClassName("Button1")[x].innerHTML = firstWORD[0];
 				good.play();
 				good.currentTime = 0;
@@ -396,6 +466,7 @@ function letterWORD(){
 				setTimeout(function(){
 					document.getElementsByClassName("Button2")[x].innerHTML = enter[1];
 					document.getElementsByClassName("Button2")[x].style.background = "darkred";
+					document.getElementsByClassName("Button2")[x].style.borderRadius = "0px";
 					bad.play();
 					bad.currentTime = 0;
 				}, 300);
@@ -404,6 +475,7 @@ function letterWORD(){
 				setTimeout(function(){
 					document.getElementsByClassName("Button2")[x].innerHTML = enter[1];
 					document.getElementsByClassName("Button2")[x].style.background = "orange";
+					document.getElementsByClassName("Button2")[x].style.borderRadius = "35px";
 					bad.play();
 					bad.currentTime = 0;
 				}, 300);
@@ -413,6 +485,7 @@ function letterWORD(){
 			setTimeout(function(){
 				document.getElementsByClassName("Button2")[x].innerHTML = enter[1];
 				document.getElementsByClassName("Button2")[x].style.background = "darkred";
+				document.getElementsByClassName("Button2")[x].style.borderRadius = "0px";
 				bad.play();
 				bad.currentTime = 0;
 			}, 300);
@@ -421,6 +494,7 @@ function letterWORD(){
 			firstWORD[1] = firstWORD2[1];
 			setTimeout(function(){ 
 				document.getElementsByClassName("Button2")[x].style.background = "darkgreen";
+				document.getElementsByClassName("Button2")[x].style.borderRadius = "0px";
 				document.getElementsByClassName("Button2")[x].innerHTML = firstWORD[1];
 				good.play();
 				good.currentTime = 0;
@@ -433,6 +507,8 @@ function letterWORD(){
 				setTimeout(function(){
 					document.getElementsByClassName("Button3")[x].innerHTML = enter[2];
 					document.getElementsByClassName("Button3")[x].style.background = "darkred";
+					document.getElementsByClassName("Button3")[x].style.borderRadius = "0px";
+
 					bad.play();
 					bad.currentTime = 0;
 				}, 600);
@@ -441,6 +517,7 @@ function letterWORD(){
 				setTimeout(function(){
 					document.getElementsByClassName("Button3")[x].innerHTML = enter[2];
 					document.getElementsByClassName("Button3")[x].style.background = "orange";
+					document.getElementsByClassName("Button3")[x].style.borderRadius = "35px";
 					bad.play();
 					bad.currentTime = 0;
 				}, 600);
@@ -450,6 +527,7 @@ function letterWORD(){
 			setTimeout(function(){
 				document.getElementsByClassName("Button3")[x].innerHTML = enter[2];
 				document.getElementsByClassName("Button3")[x].style.background = "darkred";
+				document.getElementsByClassName("Button3")[x].style.borderRadius = "0px";
 				bad.play();
 				bad.currentTime = 0;
 			}, 600);
@@ -458,6 +536,7 @@ function letterWORD(){
 			firstWORD[2] = firstWORD2[2];
 			setTimeout(function(){ 
 				document.getElementsByClassName("Button3")[x].style.background = "darkgreen";
+				document.getElementsByClassName("Button3")[x].style.borderRadius = "0px";
 				document.getElementsByClassName("Button3")[x].innerHTML = firstWORD[2];
 				good.play();
 				good.currentTime = 0;
@@ -471,6 +550,7 @@ function letterWORD(){
 				setTimeout(function(){
 					document.getElementsByClassName("Button4")[x].innerHTML = enter[3];
 					document.getElementsByClassName("Button4")[x].style.background = "darkred";
+					document.getElementsByClassName("Button4")[x].style.borderRadius = "0px";
 					bad.play();
 					bad.currentTime = 0;
 				}, 900);
@@ -479,6 +559,7 @@ function letterWORD(){
 				setTimeout(function(){
 					document.getElementsByClassName("Button4")[x].innerHTML = enter[3];
 					document.getElementsByClassName("Button4")[x].style.background = "orange";
+					document.getElementsByClassName("Button4")[x].style.borderRadius = "35px"
 					bad.play();
 					bad.currentTime = 0;
 				}, 900);
@@ -496,6 +577,7 @@ function letterWORD(){
 			firstWORD[3] = firstWORD2[3];
 			setTimeout(function(){ 
 				document.getElementsByClassName("Button4")[x].style.background = "darkgreen";
+				document.getElementsByClassName("Button4")[x].style.borderRadius = "0px";
 				document.getElementsByClassName("Button4")[x].innerHTML = firstWORD[3];
 				good.play();
 				good.currentTime = 0;
@@ -509,6 +591,7 @@ function letterWORD(){
 				setTimeout(function(){
 					document.getElementsByClassName("Button5")[x].innerHTML = enter[4];
 					document.getElementsByClassName("Button5")[x].style.background = "darkred";
+					document.getElementsByClassName("Button5")[x].style.borderRadius = "0px";
 					bad.play();
 					bad.currentTime = 0;
 				}, 1200);
@@ -517,6 +600,7 @@ function letterWORD(){
 				setTimeout(function(){
 					document.getElementsByClassName("Button5")[x].innerHTML = enter[4];
 					document.getElementsByClassName("Button5")[x].style.background = "orange";
+					document.getElementsByClassName("Button5")[x].style.borderRadius = "35px"
 					bad.play();
 					bad.currentTime = 0;
 				}, 1200);
@@ -526,6 +610,7 @@ function letterWORD(){
 			setTimeout(function(){
 				document.getElementsByClassName("Button5")[x].innerHTML = enter[4];
 				document.getElementsByClassName("Button5")[x].style.background = "darkred";
+				document.getElementsByClassName("Button5")[x].style.borderRadius = "0px";
 				bad.play();
 				bad.currentTime = 0;
 			}, 1200);
@@ -534,6 +619,7 @@ function letterWORD(){
 			firstWORD[4] = firstWORD2[4];
 			setTimeout(function(){ 
 				document.getElementsByClassName("Button5")[x].style.background = "darkgreen";
+				document.getElementsByClassName("Button5")[x].style.borderRadius = "0px";
 				document.getElementsByClassName("Button5")[x].innerHTML = firstWORD[4];
 				good.play();
 				good.currentTime = 0;
@@ -669,7 +755,6 @@ document.getElementById('input').onkeydown = function(e){
 		roundCOUNT += 1;
 		console.log(roundCOUNT);
 		letterWORD();
-
 	}
 };
 

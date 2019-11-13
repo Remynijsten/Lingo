@@ -1,0 +1,35 @@
+p{
+	display: inline-block;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+#startBTN:hover{
+    transform:scale(1.1, 1.1);
+    background:white;
+    color: black;
+}
+
+#input{
+    display: block;
+    margin: 0 auto;
+    width: 353px;
+    height: 87px;
+    position: absolute;
+    left: 38%;
+    top: 87%;
+}
+
+i:hover{
+    color: orange;
+    transform: scale(1.1, 1.1);
+}
+
+@keyframes timer {
+  0% {width: 345px; background:green;}
+  50%{width: 172px; background:orange;}
+  100% {width: 0px; background:red;}
+}
